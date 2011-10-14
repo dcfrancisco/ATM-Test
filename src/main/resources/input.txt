@@ -1,0 +1,30 @@
+#Total cash in ATM
+8000
+
+#Session 1
+#Account number - Correct pin - Entered pin
+12345678 1234 1234
+#Current balance - Overdraft facility
+500 100
+#Balance enquiry
+B #Out: 500
+#Cash withdrawal
+W 100 #Out: 400
+
+#Session 2
+#Account number - Correct pin - Entered pin
+87654321 4321 4321
+#Current balance - Overdraft facility
+100 0
+#Cash withdrawal
+W 10 #Out: 90
+
+#Session 3
+#Account number - Correct pin - Entered pin
+87654321 4321 4321
+#Current balance - Overdraft facility
+0 0
+#Cash withdrawal
+W 10 #Out: FUNDS_ERR
+#Balance enquiry
+B #Out: 0
