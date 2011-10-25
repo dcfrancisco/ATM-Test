@@ -1,3 +1,10 @@
-A programming test for AKQA. For parameters, see ATM.test.pdf.
+A programming test for AKQA. For problem statement, see ATM.test.pdf.
 
-To run
+This project has been configured with the Maven 3.x build tool. 
+
+To run the program using the artefact:
+1. cd artifact
+2. java -jar henrikpettersen-1.0.jar
+
+To run from maven:
+mvn clean package exec:java -Dexec.mainClass="com.akqa.test.henrikpettersen.Atm"
