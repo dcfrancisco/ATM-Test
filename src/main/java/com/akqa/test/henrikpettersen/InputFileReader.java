@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +49,15 @@ public class InputFileReader {
      * @return A list of session instances configured with the data from the input file
      */
     public List<Session> readFile(){
-        File file = new File(filename);
+        
+        InputStream is = Atm.class.getResourceAsStream(filename);
+        
+        //File file = new File(filename);
         List<String> lines = new ArrayList<String>();
         
         //Read in the entire file, and create a list of all the lines in this file
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                            new FileInputStream(file)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line.trim());

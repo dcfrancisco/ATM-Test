@@ -1,5 +1,6 @@
 package com.akqa.test.henrikpettersen;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ import java.util.List;
 public class Atm {
     
     //Contains the information on the atm session we want to run through this atm
-    private static final String INPUT_FILE_VAR_NAME = "input.file";
+    private static final String INPUT_FILE = "input.txt";
     
     //The amount of money available to the ATM
     private static long atmBalance;
@@ -42,7 +43,9 @@ public class Atm {
     public static void main( String[] args )
     {
         //Read in all the session configurations first
-        InputFileReader myFileReader = new InputFileReader(System.getenv(INPUT_FILE_VAR_NAME));
+        //System.out.println("\n\nFilename: " + System.getProperty(INPUT_FILE_VAR_NAME) + "\n\n");
+        //InputStream is = null;
+        InputFileReader myFileReader = new InputFileReader(INPUT_FILE);
         myFileReader.readFile();
         
         atmBalance = myFileReader.getAtmBalance();        
