@@ -1,6 +1,5 @@
 package com.akqa.test.henrikpettersen;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class Atm {
     private static final String INPUT_FILE = "input.txt";
     
     //The amount of money available to the ATM
-    private static long atmBalance;
+    private long atmBalance;
     
     public long getAtmBalance(){
         return atmBalance;
@@ -42,18 +41,18 @@ public class Atm {
     
     public static void main( String[] args )
     {
+        Atm atm = new Atm();
+        
         //Read in all the session configurations first
-        //System.out.println("\n\nFilename: " + System.getProperty(INPUT_FILE_VAR_NAME) + "\n\n");
-        //InputStream is = null;
         InputFileReader myFileReader = new InputFileReader(INPUT_FILE);
         myFileReader.readFile();
         
-        atmBalance = myFileReader.getAtmBalance();        
+        atm.setAtmBalance(myFileReader.getAtmBalance());        
         //printDebug(myFileReader.getSessions());
         
         //Run each session from the input file through the ATM
         for (Session session : myFileReader.getSessions()){
-            performActions(session);
+            atm.performActions(session);
         }
     }
     
@@ -63,7 +62,7 @@ public class Atm {
      * its associated actions
      * @param session One ATM operation by a single customer
      */
-    private static void performActions(Session session){
+    private void performActions(Session session){
         try {
             verifyPin(session);
             for (Action action : session.getActions()){
@@ -90,7 +89,7 @@ public class Atm {
      * Available funds = current account balance + overdraft facility
      * @param session One ATM operation by a single customer
      */
-    private static long getAvailableFunds(Session session){
+    private long getAvailableFunds(Session session){
         return session.getBalance() + session.getOverdraft();
     }
     
@@ -99,7 +98,7 @@ public class Atm {
      * @param session One ATM operation by a single customer
      * @throws AtmException If expected pin != entered pin
      */
-    public static void verifyPin(Session session) throws AtmException{
+    public void verifyPin(Session session) throws AtmException{
         if (!session.getExpectedPin().equals(session.getEnteredPin())){
             throw new AtmException(ErrorCode.ACCOUNT_ERR);
         }
@@ -115,7 +114,7 @@ public class Atm {
      * @param action A withdrawal action, contains the amount to withdraw
      * @throws AtmException If the ATM or account does not have enough funds available
      */
-    public static void withdrawFundsAndDisplayBalance(Session session, Action action) throws AtmException{
+    public void withdrawFundsAndDisplayBalance(Session session, Action action) throws AtmException{
         //Check to see if the ATM has enough funds to dispense
         if(action.getAmount() > atmBalance){
             throw new AtmException(ErrorCode.ATM_ERR);
@@ -152,7 +151,7 @@ public class Atm {
      * Prints the account balance
      * @param session One ATM operation by a single customer
      */
-    public static void displayBalance(Session session){
+    public void displayBalance(Session session){
         System.out.println(session.getBalance());
     }
     
@@ -161,7 +160,7 @@ public class Atm {
      * input file. Only used for debugging purposes
      * @param myFileReader Contains the sessions allready read in
      */
-    private static void printDebug(List<Session> sessions) {
+    private void printDebug(List<Session> sessions) {
         System.out.println("**************************");
         for (Session session : sessions){
             System.out.println(session);
